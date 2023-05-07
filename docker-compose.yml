@@ -1,45 +1,36 @@
 version: '3.1'
-
 services:
   springapp:
-    image: mylandmarktech/spring-boot-mongo:latest
-    restart: always # This will be ignored if we deploy in docker swarm
+    image: chydinma/spring-boot-mongo:2
+    container_name: app_main2
+    restart: always
     environment:
     - MONGO_DB_HOSTNAME=mongo
     - MONGO_DB_USERNAME=devdb
     - MONGO_DB_PASSWORD=devdb123
     ports:
-      - 8080:8080
-    working_dir: /opt/app
+      - 8010:8080
     depends_on:
       - mongo
     networks:
-    - aws-network  
-    deploy:  # This will be considered only in docker swarm.
-      replicas: 2
-      update_config:
-        parallelism: 1
-        delay: 20s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-
+    - alpha
   mongo:
     image: mongo
+    container_name: app_mongo2
+    restart: always
     environment:
     - MONGO_INITDB_ROOT_USERNAME=devdb
     - MONGO_INITDB_ROOT_PASSWORD=devdb123
     volumes:
-      - mongodb:/data/db
-    restart: always
+      - ebs17:/data/db
     networks:
-    - aws-network
-    
+    - alpha
+    ports:
+      - 27017:27017
 volumes:
-  mongodb:
+  ebs17:
     external: true
-    
+
 networks:
-  aws-network:
+  alpha:
     external: true
