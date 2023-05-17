@@ -18,8 +18,26 @@
 		<spring-boot.version>2.1.5.RELEASE</spring-boot.version>
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 		<logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
+		<sonar.host.url>http://52.204.231.12:9000/</sonar.host.url>
+		<sonar.login>admin</sonar.login>
+		<sonar.password>admin123</sonar.password>
 	</properties>
 
+	<distributionManagement>
+	    <repository>
+	      <id>nexus</id>
+	      <name>MerciBoi Systems Releases Nexus Repository</name>
+	      <url>http://52.204.231.12:8081/repository/springapp-release/</url>
+	    </repository>
+	    
+	    <snapshotRepository>
+	      <id>nexus</id>
+	      <name>MerciBoi Systems Snapshot Nexus Repository</name>
+	      <url>http://52.204.231.12:8081/repository/springapp-snapshot/</url>
+	    </snapshotRepository>
+	    
+	</distributionManagement>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -91,4 +109,12 @@
 			</plugin>
 		</plugins>
 	</build>
+
+<repositories> 
+           <repository> 
+             <id>nexus</id>
+             <name>MerciBoi Springapp proxy repo</name>
+             <url>http://52.204.231.12:8081/repository/springapp-proxy/</url>
+           </repository>
+       </repositories>
 </project>
